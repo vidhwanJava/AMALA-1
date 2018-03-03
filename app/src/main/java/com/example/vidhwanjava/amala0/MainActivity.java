@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    final long totalScrollTime = 8000;
+    final long totalScrollTime = 15000;
     final int scrollPeriod = 35; // every 20 ms scroll will happened. smaller values for smoother
     final int heightToScroll = 3;
     final int negHeightToScroll = -3;// will be scrolled to 20 px every time. smaller values for smoother scrolling
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 scroller2();
                 scroller3();
 
-                SystemClock.sleep(2*totalScrollTime);
+                SystemClock.sleep(3*totalScrollTime);
             }}
         };
 

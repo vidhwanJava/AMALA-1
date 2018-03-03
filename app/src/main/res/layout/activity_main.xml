@@ -11,52 +11,43 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/waiting"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/proceed"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView3"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="116dp"
         android:layout_marginTop="8dp"
         android:text="@string/dispatch"
         android:textColor="@android:color/holo_green_dark"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -73,7 +64,7 @@
         <ListView
             android:id="@+id/waitingList"
             android:layout_width="match_parent"
-            android:layout_height="1500dp"
+            android:layout_height="5000dp"
             android:entries="@array/main" />
     </LinearLayout>
 
@@ -92,7 +83,7 @@
         <ListView
             android:id="@+id/proceedList"
             android:layout_width="match_parent"
-            android:layout_height="1500dp"
+            android:layout_height="5000dp"
             android:entries="@array/main" />
     </LinearLayout>
 
@@ -112,7 +103,7 @@
         <ListView
             android:id="@+id/dispatchList"
             android:layout_width="match_parent"
-            android:layout_height="1500dp"
+            android:layout_height="5000dp"
             android:entries="@array/main" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
