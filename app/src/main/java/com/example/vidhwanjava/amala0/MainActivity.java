@@ -21,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    final long totalScrollTime = 15000;
-    final int scrollPeriod = 35; // every 20 ms scroll will happened. smaller values for smoother
-    final int heightToScroll = 3;
-    final int negHeightToScroll = -3;// will be scrolled to 20 px every time. smaller values for smoother scrolling
+    final long totalScrollTime = 10000;
+    final int scrollPeriod = 80; // every 20 ms scroll will happened. smaller values for smoother
+    final int heightToScroll = 2;
+    final int negHeightToScroll = -2;// will be scrolled to 20 px every time. smaller values for smoother scrolling
 
 
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         int listViewSize = listView1.getCount();
         String listv=""+listViewSize;
         Toast.makeText(getApplicationContext(),listv,Toast.LENGTH_SHORT).show();
-
+       final long offset=(long)(2*totalScrollTime);
 
 
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 scroller2();
                 scroller3();
 
-                SystemClock.sleep(3*totalScrollTime);
+                SystemClock.sleep(offset);
             }}
         };
 
