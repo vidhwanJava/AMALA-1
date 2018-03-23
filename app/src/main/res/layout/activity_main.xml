@@ -72,8 +72,7 @@
         <ListView
             android:id="@+id/waitingList"
             android:layout_width="match_parent"
-            android:layout_height="5000dp"
-            android:entries="@array/main" />
+            android:layout_height="5000dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -93,8 +92,7 @@
         <ListView
             android:id="@+id/proceedList"
             android:layout_width="match_parent"
-            android:layout_height="5000dp"
-            android:entries="@array/main" />
+            android:layout_height="5000dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -114,7 +112,7 @@
         <ListView
             android:id="@+id/dispatchList"
             android:layout_width="match_parent"
-            android:layout_height="5000dp"
-            android:entries="@array/main" />
+            android:layout_height="5000dp" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
