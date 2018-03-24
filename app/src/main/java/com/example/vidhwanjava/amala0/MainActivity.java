@@ -17,7 +17,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> firstListAdapter;
     ArrayAdapter<String> secondListAdapter;
     ArrayAdapter<String> thirdListAdapter;
+    List<Integer> codeParse;
 
 
     @Override
@@ -65,18 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
         final long offset=(long)(2*totalScrollTime);
 
-        // Get the json file from the link http://122.15.159.161:4422/webservice/scanimage/all
 
+
+        // Calls the function getJsonFile to Get the json file from the link http://122.15.159.161:4422/webservice/scanimage/all
         new getJsonFile().execute();
 
 
-
-
-
-
-
-
-        //
 
 
         Runnable mynewRunnable = new Runnable() {
@@ -151,30 +148,34 @@ public void useArrayAdapter(){
         protected void onPostExecute(Void aVoid){
             super.onPostExecute(aVoid);
 
-            showtext();
-            JsonParser();
-            useArrayAdapter();
+            showtext(); //show toast
+            JsonParser();//parse the json file that is downloaed from the method getjsonfile
+           // Collections.sort(codeArray); activate if need to sort the json 'code' acording to the string
+            useArrayAdapter();// set the listview with the parsed json file using a adapter
         }
     }
 
 
     public void JsonParser(){
 
-        String JSON_STRING =words;
+
         codeArray = new ArrayList<String>();
+        //codeArray.sort();
+
         hopapatientArray= new ArrayList<String>();
         scanimageArray= new ArrayList<String>();
         try {
-            JSONArray jsonResponse = new JSONArray(JSON_STRING);
+            JSONArray jsonResponse = new JSONArray(words);
 
             for (int i = 0; i < jsonResponse.length(); i++) {
-                JSONObject actor = jsonResponse.getJSONObject(i);
-                code = actor.getString("code");
+                JSONObject dataReceivedObject = jsonResponse.getJSONObject(i);
+                code = dataReceivedObject.getString("code");
                 codeArray.add(code);
-                hopapatient=actor.getString("hopapatient");
+                hopapatient=dataReceivedObject.getString("hopapatient");
                 hopapatientArray.add(hopapatient);
-                scanimage=actor.getString("scanimage");
+                scanimage=dataReceivedObject.getString("scanimage");
                 scanimageArray.add(scanimage);
+
                 //Toast.makeText(this,code,Toast.LENGTH_SHORT).show();
                 //Toast.makeText(this,hopapatient,Toast.LENGTH_SHORT).show();
             }
@@ -202,13 +203,11 @@ public void useArrayAdapter(){
 
 
 
-
     public void scroller1(){
 
         Runnable myRunnable = new Runnable() {
             @Override
             public void run() {
-
 
                 listView1.post(new Runnable() {
 
