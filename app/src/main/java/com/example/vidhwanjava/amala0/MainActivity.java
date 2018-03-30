@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     String code;
     String hopapatient;
     String scanimage;
+    int lengthOfJason;
     List<String> codeArray;
     List<String> hopapatientArray;
     List<String> scanimageArray;
@@ -120,7 +121,7 @@ public void useArrayAdapter(){
 }
 
 
-    public class getJsonFile extends AsyncTask<Void, Void, Void>{
+    public  class getJsonFile extends AsyncTask<Void, Void, Void>{
 
 
 
@@ -131,6 +132,7 @@ public void useArrayAdapter(){
 
                 Document doc =Jsoup.connect("http://122.15.159.161:4422/webservice/scanimage/all").ignoreContentType(true).get();
                 words=doc.text();
+                lengthOfJason=words.length();
 
             } catch (IOException e) {
                     words=e.toString();
@@ -181,7 +183,7 @@ public void useArrayAdapter(){
             }
         }
         catch (JSONException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
             Log.d("error",e.toString());
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
@@ -196,7 +198,9 @@ public void useArrayAdapter(){
         Toast.makeText(this,words,Toast.LENGTH_SHORT).show();
     }
 
+    public void toSetScrollTime(){
 
+    }
 
 
 
