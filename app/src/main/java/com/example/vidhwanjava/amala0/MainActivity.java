@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    final long totalScrollTime = 10000;
+     long totalScrollTime;
     final int scrollPeriod = 80; // every 20 ms scroll will happened. smaller values for smoother
     final int heightToScroll = 2;
     final int negHeightToScroll = -2;// will be scrolled to 20 px every time. smaller values for smoother scrolling
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> secondListAdapter;
     ArrayAdapter<String> thirdListAdapter;
     List<Integer> codeParse;
+    long offset;
 
 
     @Override
@@ -59,15 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-// Hello! this is to check breanching on github
 
-//TEst
        /* int listViewSize = listView1.getCount();
         String listv=""+listViewSize;
         Toast.makeText(getApplicationContext(),listv,Toast.LENGTH_SHORT).show();*/
 
 
-        final long offset=(long)(2*totalScrollTime);
+
 
 
 
@@ -77,21 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        Runnable mynewRunnable = new Runnable() {
-            @Override
-            public void run() {
-                while(true){
-                scroller1();
-                scroller2();
-                scroller3();
 
-                SystemClock.sleep(offset);
-            }}
-        };
-
-
-        Thread myThread = new Thread(mynewRunnable);
-        myThread.start();
 
 
 
@@ -102,15 +87,15 @@ public class MainActivity extends AppCompatActivity {
 
     // Function to set data from the json to the listviews. It cannot be written in onCreate, thus this function.
 public void useArrayAdapter(){
-    firstListAdapter =new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, codeArray);
+    firstListAdapter =new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, codeArray);
 
     listView1.setAdapter(firstListAdapter);
 
-    secondListAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, hopapatientArray);
+    secondListAdapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, hopapatientArray);
 
     listView2.setAdapter(secondListAdapter);
 
-    thirdListAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, scanimageArray);
+    thirdListAdapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, scanimageArray);
 
     listView3.setAdapter(thirdListAdapter);
 
@@ -130,9 +115,10 @@ public void useArrayAdapter(){
 
             try {
 
-                Document doc =Jsoup.connect("http://122.15.159.161:4422/webservice/scanimage/all").ignoreContentType(true).get();
+                //Document doc =Jsoup.connect("http://122.15.159.161:4422/webservice/scanimage/all").ignoreContentType(true).get();
+                Document doc =Jsoup.connect("http://testforamala.atwebpages.com").ignoreContentType(true).get();
                 words=doc.text();
-                lengthOfJason=words.length();
+
 
             } catch (IOException e) {
                     words=e.toString();
@@ -150,10 +136,30 @@ public void useArrayAdapter(){
         protected void onPostExecute(Void aVoid){
             super.onPostExecute(aVoid);
 
-            showtext(); //show toast
+             //show toast
+
             JsonParser();//parse the json file that is downloaed from the method getjsonfile
+            toSetScrollTime();
+            showText();
            // Collections.sort(codeArray); activate if need to sort the json 'code' acording to the string
             useArrayAdapter();// set the listview with the parsed json file using a adapter
+
+
+            Runnable mynewRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    while(true){
+                        scroller1();
+                        scroller2();
+                        scroller3();
+
+                        SystemClock.sleep(offset);
+                    }}
+            };
+
+
+            Thread myThread = new Thread(mynewRunnable);
+            myThread.start();
         }
     }
 
@@ -161,11 +167,11 @@ public void useArrayAdapter(){
     public void JsonParser(){
 
 
-        codeArray = new ArrayList<String>();
+        codeArray = new ArrayList<>();
         //codeArray.sort();
 
-        hopapatientArray= new ArrayList<String>();
-        scanimageArray= new ArrayList<String>();
+        hopapatientArray= new ArrayList<>();
+        scanimageArray= new ArrayList<>();
         try {
             JSONArray jsonResponse = new JSONArray(words);
 
@@ -194,11 +200,18 @@ public void useArrayAdapter(){
 
 
 
-    public void showtext(){
+    public void showText(){
         Toast.makeText(this,words,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"Length"+lengthOfJason,Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"totalScrollTime"+totalScrollTime,Toast.LENGTH_LONG).show();
     }
 
     public void toSetScrollTime(){
+        lengthOfJason=codeArray.size();
+        totalScrollTime=(1300*lengthOfJason);
+        offset=(long)(2*totalScrollTime);
+        //TODO if a minimum no. of objects are not present, skip scrolling
+        //TODO implement Refresh cycle
 
     }
 
